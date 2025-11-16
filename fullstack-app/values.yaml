@@ -1,0 +1,54 @@
+namespace: fullstack-app
+
+# =====================
+# MySQL Configuration
+# =====================
+mysql:
+  image: mysql:8.0
+  rootPassword: password
+  database: helmdb
+  service:
+    port: 3306
+    type: ClusterIP   # Only accessible inside the cluster
+
+# =====================
+# Backend Configuration
+# =====================
+backend:
+  image: tkeertichandan/backend-helm:latest
+  replicas: 2
+  port: 2010
+  nodePort: 31015
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 50
+
+# =====================
+# Frontend Configuration
+# =====================
+frontend:
+  image: tkeertichandan/frontend-helm:latest
+  replicas: 2
+  port: 80
+  nodePort: 30080
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 50
