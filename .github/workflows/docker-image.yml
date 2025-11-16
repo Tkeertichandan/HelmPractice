@@ -40,7 +40,7 @@ jobs:
           context: ./S-MAPI
           file: ./S-MAPI/backend.Dockerfile
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           tags: ${{ secrets.DOCKER_USERNAME }}/backend-helm:latest
 
       # -------------------------------------------------
@@ -52,5 +52,5 @@ jobs:
           context: ./F-API
           file: ./F-API/frontend.Dockerfile
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           tags: ${{ secrets.DOCKER_USERNAME }}/frontend-helm:latest
